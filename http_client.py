@@ -1,5 +1,5 @@
 """
-Usage: hello
+Usage:
   python http_client.py <function_url> <auth_secret> <body_json_file>
 
   python http_client.py https://cjoakimfunctions.azurewebsites.net/api/HttpCosmos ppqXXXXX postdata/body1.json
