@@ -26,5 +26,5 @@ publish:
 get_url:
 	./admin/get-url.sh
 
-build_request_files:
-	./http-requests/postdata.py > ./http-requests/data/body1.json
+create_payload:
+	python ./http-requests/postdata.py > ./http-requests/data/body1.json
