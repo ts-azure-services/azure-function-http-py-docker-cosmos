@@ -4,7 +4,7 @@ install:
 	pip install azure-functions
 
 infra:
-	./setup/create-resources.sh
+	./admin/create-resources.sh
 
 function_setup:
 	func init --worker-runtime python
@@ -16,5 +16,7 @@ copy_artifacts:
 
 publish_app:
 	. variables.env;\
-		echo functionappname: $${FUNCTIONAPPNAME}; \
 		func azure functionapp publish $${FUNCTIONAPPNAME}
+
+cleanup:
+	./admin/cleanup.sh
