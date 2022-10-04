@@ -3,6 +3,7 @@ install:
 	pip install azure-cosmos
 	pip install azure-functions
 	pip install requests
+	pip install python-dotenv
 
 cleanup:
 	./admin/cleanup.sh

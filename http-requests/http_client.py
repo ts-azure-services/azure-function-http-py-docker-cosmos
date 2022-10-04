@@ -1,20 +1,33 @@
-"""
-Usage:
+"""Usage:
   python http_client.py <function_url> <auth_secret> <body_json_file>
   python http_client.py https://cjoakimfunctions.azurewebsites.net/api/HttpCosmos ppqXXXXX postdata/body1.json
 """
 import sys
 import json
 import requests
+from dotenv import load_dotenv
+
+def load_variables():
+    """Load authentication details"""
+    env_var=load_dotenv('./variables.env')
+    auth_dict = {
+            "resource_group":os.environ['RESOURCE_GROUP'],
+            "storage_acct_name":os.environ['STORAGE_ACCT_NAME'],
+            "storage_conn_string":os.environ['STORAGE_CONN_STRING'],
+            "function_app_name":os.environ['FUNCTIONAPPNAME'],
+            "function_app_secret":os.environ['FUNCTIONAPP_SECRET'],
+            "function_url":os.environ['FUNCTIONAPP_URL'],
+            }
+    return auth_dict
 
 def read_body_json_file(body_json_file):
     with open(body_json_file, 'rt') as f:
         return f.read()
 
 if __name__ == "__main__":
-    function_url   = sys.argv[1]
-    auth_secret    = sys.argv[2]
     body_json_file = sys.argv[3]
+    auth_var = load_variables()
+    function_url, auth_secret, body_json_file = auth_dict['function_url'], auth_dict['function_app_secret'], 
 
     body = json.loads(read_body_json_file(body_json_file))
 
