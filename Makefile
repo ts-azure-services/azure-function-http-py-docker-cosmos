@@ -2,7 +2,6 @@ install:
 	#conda create -n functions-cosmos python=3.8 -y; conda activate functions-cosmos
 	pip install azure-cosmos
 	pip install azure-functions
-	pip install wazoo
 
 infra:
 	./setup/create-resources.sh
@@ -14,3 +13,8 @@ function_setup:
 copy_artifacts:
 	cp ./HttpCosmosOriginal/__init__.py ./HttpCosmos/__init__.py
 	cp ./HttpCosmosOriginal/function.json ./HttpCosmos/function.json
+
+publish_app:
+	. variables.env;\
+		echo functionappname: $${FUNCTIONAPPNAME}; \
+		func azure functionapp publish $${FUNCTIONAPPNAME}

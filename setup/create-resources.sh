@@ -122,6 +122,7 @@ printf "Result of function app setting changes:\n $result \n"
 printf "${grn}WRITING OUT ENVIRONMENT VARIABLES...${end}\n"
 configFile='variables.env'
 printf "RESOURCE_GROUP=$resourcegroup \n"> $configFile
+printf "STORAGE_ACCT_NAME=$storagename \n" >> $configFile
 printf "STORAGE_CONN_STRING=$sakey \n" >> $configFile
 printf "FUNCTIONAPPNAME=$functionappname \n" >> $configFile
 printf "COSMOSDB_ACCOUNT=$cosmosdbaccount \n">> $configFile
