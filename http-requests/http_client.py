@@ -1,7 +1,6 @@
 """
 Usage:
   python http_client.py <function_url> <auth_secret> <body_json_file>
-
   python http_client.py https://cjoakimfunctions.azurewebsites.net/api/HttpCosmos ppqXXXXX postdata/body1.json
 """
 import sys
@@ -33,9 +32,7 @@ if __name__ == "__main__":
     print('---')
     print('response:')
 
-    response = requests.post(
-        function_url, headers=headers, json=body)
-
+    response = requests.post(function_url, headers=headers, json=body)
     print('response: {}'.format(response))
 
     if response.status_code == 200:
