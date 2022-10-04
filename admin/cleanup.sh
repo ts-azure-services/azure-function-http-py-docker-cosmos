@@ -11,6 +11,6 @@ sleep 2
 rm -rf ./.vscode
 rm -rf ./.python_package
 rm -rf ./HttpCosmos
-rm ./getting_started.md
-rm ./host.json
-rm ./local.settings.json
+rm -f ./getting_started.md
+rm -f ./host.json
+rm -f ./local.settings.json

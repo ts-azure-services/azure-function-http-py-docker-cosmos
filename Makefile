@@ -6,6 +6,9 @@ install:
 infra:
 	./admin/create-resources.sh
 
+cleanup:
+	./admin/cleanup.sh
+
 function_setup:
 	func init --worker-runtime python
 	func new --name HttpCosmos --template "HTTP trigger" --authlevel anonymous
@@ -18,5 +21,3 @@ publish_app:
 	. variables.env;\
 		func azure functionapp publish $${FUNCTIONAPPNAME}
 
-cleanup:
-	./admin/cleanup.sh
