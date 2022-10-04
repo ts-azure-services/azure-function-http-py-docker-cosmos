@@ -111,6 +111,15 @@ result=$(az functionapp create \
 printf "Result of function create:\n $result \n"
 sleep 5
 
+printf "${grn}Get function app URL...${end}\n"
+functionappurl=$(az functionapp function show --name $functionappname \
+	--function-name "HttpCosmos" \
+	-g $resourcegroup \
+	--query "invokeUrlTemplate")
+# Show the last printf statement since it shows all settings
+printf "Result of function app URL:\n $functionappurl \n"
+sleep 5
+
 # Remove double quotes, editing before writing to configuration file
 primaryMasterKey=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryMasterKey")
 primaryConnectionString=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryConnectionString")
@@ -142,6 +151,7 @@ result=$(az functionapp config appsettings set -n $functionappname -g $resourceg
 	--settings AZURE_FUNCTION_MAX_QUERIES=100)
 # Show the last printf statement since it shows all settings
 printf "Result of function app setting changes:\n $result \n"
+sleep 5
 
 
 # Create environment file 
@@ -152,8 +162,9 @@ printf "STORAGE_ACCT_NAME=$storagename \n" >> $configFile
 printf "STORAGE_CONN_STRING=$sakey \n" >> $configFile
 printf "FUNCTIONAPPNAME=$functionappname \n" >> $configFile
 printf "FUNCTIONAPP_SECRET=$functionapppw \n" >> $configFile
+printf "FUNCTIONAPP_URL=$functionappurl \n" >> $configFile
 printf "COSMOSDB_ACCOUNT=$cosmosdbaccount \n">> $configFile
 printf "COSMOSDB_CONTAINER=$cosmosdbcontainer \n">> $configFile
 printf "COSMOSDB_ACCT_PRIMARY_KEY=$primaryMasterKey \n">> $configFile
 printf "COSMOSDB_ACCT_PRIMARY_CONN_STRING=$primaryConnectionString \n">> $configFile
-sleep 20 # just to give time for artifacts to settle in the system, and be accessible
+sleep 5 # just to give time for artifacts to settle in the system, and be accessible
