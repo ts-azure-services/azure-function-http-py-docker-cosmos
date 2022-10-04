@@ -11,7 +11,6 @@ def load_variables():
     """Load authentication details"""
     env_var=load_dotenv('./variables.env')
     auth_dict = {
-            "function_app_name":os.environ['FUNCTIONAPPNAME'],
             "function_app_secret":os.environ['FUNCTIONAPP_SECRET'],
             "function_url":os.environ['FUNCTIONAPP_URL'],
             }
@@ -24,30 +23,21 @@ def read_body_json_file(body_json_file):
 if __name__ == "__main__":
     auth_var = load_variables()
     body_json_file = './postdata/body1.json'
-    function_url, auth_secret = auth_var['function_url'], auth_var['function_app_secret'], 
-
     body = json.loads(read_body_json_file(body_json_file))
-
-    print('function_url:   {}'.format(function_url))
-    print('auth_secret:    {}'.format(auth_secret))
-    print('body_json_file: {}'.format(body_json_file))
-    print('body:')
-    print(json.dumps(body, sort_keys=False, indent=2))
-
     headers = dict()
     headers['Content-Type'] = 'application/json'
-    headers['Auth-Token'] = auth_secret
-    print('headers:')
-    print(json.dumps(headers, sort_keys=False, indent=2))
-    print('---')
-    print('response:')
-
-    response = requests.post(function_url, headers=headers, json=body)
-    print('response: {}'.format(response))
+    headers['Auth-Token'] = auth_var['function_app_secret']
 
     try:
-        #if response.status_code == 200:
-        resp_obj = json.loads(response.text)
-        print(json.dumps(resp_obj, sort_keys=False, indent=2))
+        response = requests.post(auth_var['function_url'], headers=headers, json=body)
+        status_code, reason, resp_headers = response.status_code, response.reason, response.headers
+        print(f"Status Code: {status_code}")
+        print(f"Reason: {reason}")
+        print(f"Response headers: {resp_headers}")
+
+        if status_code == 200:
+            resp_obj = json.loads(response.text)
+            print(json.dumps(resp_obj, sort_keys=False, indent=2))
     except Exception as e:
         print(e)
+
