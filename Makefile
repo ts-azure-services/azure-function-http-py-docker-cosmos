@@ -2,6 +2,7 @@ install:
 	#conda create -n functions-cosmos python=3.8 -y; conda activate functions-cosmos
 	pip install azure-cosmos
 	pip install azure-functions
+	pip install requests
 
 cleanup:
 	./admin/cleanup.sh

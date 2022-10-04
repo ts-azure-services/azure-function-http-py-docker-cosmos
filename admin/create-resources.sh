@@ -111,6 +111,11 @@ result=$(az functionapp create \
 printf "Result of function create:\n $result \n"
 sleep 5
 
+# Remove double quotes, editing before writing to configuration file
+primaryMasterKey=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryMasterKey")
+primaryConnectionString=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryConnectionString")
+sakey=$(sed -e 's/^"//' -e 's/"$//' <<<"$sakey")
+
 # Update function app settings
 printf "${grn}Updating AzureWebJobsStorage...${end}\n"
 result=$(az functionapp config appsettings set -n $functionappname -g $resourcegroup \
@@ -138,10 +143,6 @@ result=$(az functionapp config appsettings set -n $functionappname -g $resourceg
 # Show the last printf statement since it shows all settings
 printf "Result of function app setting changes:\n $result \n"
 
-# Remove double quotes, editing before writing to configuration file
-primaryMasterKey=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryMasterKey")
-primaryConnectionString=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryConnectionString")
-sakey=$(sed -e 's/^"//' -e 's/"$//' <<<"$sakey")
 
 # Create environment file 
 printf "${grn}WRITING OUT ENVIRONMENT VARIABLES...${end}\n"

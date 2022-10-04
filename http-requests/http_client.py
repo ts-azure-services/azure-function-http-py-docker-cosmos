@@ -4,9 +4,8 @@ Usage:
 
   python http_client.py https://cjoakimfunctions.azurewebsites.net/api/HttpCosmos ppqXXXXX postdata/body1.json
 """
-
-import json
 import sys
+import json
 import requests
 
 def read_body_json_file(body_json_file):
