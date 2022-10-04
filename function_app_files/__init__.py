@@ -22,8 +22,7 @@ import azure.cosmos.partition_key as partition_key
 REQUEST_CHARGE_HEADER = 'x-ms-request-charge'
 DURATION_MS_HEADER    = 'x-ms-request-duration-ms'
 ITEM_COUNT_HEADER     = 'x-ms-item-count'
-HEADERS_OF_INTEREST   = [
-    REQUEST_CHARGE_HEADER, DURATION_MS_HEADER, ITEM_COUNT_HEADER]
+HEADERS_OF_INTEREST   = [REQUEST_CHARGE_HEADER, DURATION_MS_HEADER, ITEM_COUNT_HEADER]
 DEFAULT_MAX_QUERIES   = 50
 CACHED_COSMOS_CLIENT  = None
 # See https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-python?tabs=azurecli-linux%2Capplication-level#global-variables
@@ -36,7 +35,7 @@ def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
     record_diagnostics = diagnostics.RecordDiagnostics()
     cosmos_error, other_error = None, None
     try:
-        expected_token = os.environ['AZURE_FUNCTION_SECRET1']
+        expected_token = os.environ['AZURE_FUNCTION_SECRET']
         provided_token = req.headers['Auth-Token']
         if expected_token == provided_token:
             post_data = req.get_json()  # get_json() returns an object (i.e. - a dict)

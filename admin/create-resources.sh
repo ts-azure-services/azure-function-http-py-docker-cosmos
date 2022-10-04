@@ -5,7 +5,7 @@ end=$'\e[0m'
 
 # Start of script
 SECONDS=0
-printf "${grn}Starting creation of relevant resources...${end}\n"
+printf "${grn}Starting creation of resources...${end}\n"
 
 # Source subscription ID, and prep config file
 source sub.env
@@ -26,6 +26,7 @@ cosmosdbcontainer='sqlapi'$number'container'
 cosmosdbdatabase='sqlapi'$number'database'
 appinsightsname=$unique_name$number'appinsights'
 functionappname=$unique_name$number'functionapp'
+functionapppw=$(uuidgen)
 location='westus'
 
 # Create a resource group
@@ -111,11 +112,33 @@ result=$(az functionapp create \
 	--runtime-version '3.8' \
 	--functions-version 3)
 printf "Result of function create:\n $result \n"
+sleep 5
 
-# Create App settings
-printf "${grn}Updating function app settings...${end}\n"
+# Update function app settings
+printf "${grn}Updating AzureWebJobsStorage...${end}\n"
 result=$(az functionapp config appsettings set -n $functionappname -g $resourcegroup \
 	--settings AzureWebJobsStorage=$sakey)
+#printf "Result of function app setting changes:\n $result \n"
+
+printf "${grn}Updating CosmosDB URI...${end}\n"
+result=$(az functionapp config appsettings set -n $functionappname -g $resourcegroup \
+	--settings AZURE_COSMOSDB_SQLDB_URI=$primaryConnectionString)
+#printf "Result of function app setting changes:\n $result \n"
+
+printf "${grn}Updating CosmosDB primary key...${end}\n"
+result=$(az functionapp config appsettings set -n $functionappname -g $resourcegroup \
+	--settings AZURE_COSMOSDB_SQLDB_KEY=$primaryMasterKey)
+#printf "Result of function app setting changes:\n $result \n"
+
+printf "${grn}Updating function secret...${end}\n"
+result=$(az functionapp config appsettings set -n $functionappname -g $resourcegroup \
+	--settings AZURE_FUNCTION_SECRET=$functionapppw)
+#printf "Result of function app setting changes:\n $result \n"
+
+printf "${grn}Updating function max queries...${end}\n"
+result=$(az functionapp config appsettings set -n $functionappname -g $resourcegroup \
+	--settings AZURE_FUNCTION_MAX_QUERIES=100)
+# Show the last printf statement since it shows all settings
 printf "Result of function app setting changes:\n $result \n"
 
 # Create environment file 
