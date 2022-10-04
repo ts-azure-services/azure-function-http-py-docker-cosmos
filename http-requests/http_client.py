@@ -22,7 +22,7 @@ def read_body_json_file(body_json_file):
 
 if __name__ == "__main__":
     auth_var = load_variables()
-    body_json_file = './postdata/body1.json'
+    body_json_file = './http-requests/data/body1.json'
     body = json.loads(read_body_json_file(body_json_file))
     headers = dict()
     headers['Content-Type'] = 'application/json'
