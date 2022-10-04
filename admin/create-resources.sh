@@ -87,9 +87,6 @@ primaryConnectionString=$(az cosmosdb keys list --name $cosmosdbaccount \
 	--query "connectionStrings[0].connectionString")
 printf "Result of Cosmosdb account primary master key:\n $primaryConnectionString \n"
 
-# Remove double quotes
-primaryMasterKey=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryMasterKey")
-primaryConnectionString=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryConnectionString")
 
 # Create app insights
 printf "${grn}Starting creation of app insights...${end}\n"
@@ -110,7 +107,7 @@ result=$(az functionapp create \
 	--os-type 'Linux' \
 	--runtime 'python' \
 	--runtime-version '3.8' \
-	--functions-version 3)
+	--functions-version 4)
 printf "Result of function create:\n $result \n"
 sleep 5
 
@@ -140,6 +137,11 @@ result=$(az functionapp config appsettings set -n $functionappname -g $resourceg
 	--settings AZURE_FUNCTION_MAX_QUERIES=100)
 # Show the last printf statement since it shows all settings
 printf "Result of function app setting changes:\n $result \n"
+
+# Remove double quotes, editing before writing to configuration file
+primaryMasterKey=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryMasterKey")
+primaryConnectionString=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryConnectionString")
+sakey=$(sed -e 's/^"//' -e 's/"$//' <<<"$sakey")
 
 # Create environment file 
 printf "${grn}WRITING OUT ENVIRONMENT VARIABLES...${end}\n"
