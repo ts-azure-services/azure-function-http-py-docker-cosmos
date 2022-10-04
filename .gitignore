@@ -1,5 +1,6 @@
 *.env
 *.json
+!volcano.json
 HttpCosmos/
 .vscode/
 getting_started.md
