@@ -2,10 +2,6 @@
 grn=$'\e[1;32m'
 end=$'\e[0m'
 
-# Start of script
-SECONDS=0
-printf "${grn}Get function app URL...${end}\n"
-
 ## Source subscription ID, and prep config file
 #source sub.env
 #sub_id=$SUB_ID
