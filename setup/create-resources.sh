@@ -123,7 +123,7 @@ printf "${grn}WRITING OUT ENVIRONMENT VARIABLES...${end}\n"
 configFile='variables.env'
 printf "RESOURCE_GROUP=$resourcegroup \n"> $configFile
 printf "STORAGE_CONN_STRING=$sakey \n" >> $configFile
-printf "FUNCAPPNAME=$functionappname \n" >> $configFile
+printf "FUNCTIONAPPNAME=$functionappname \n" >> $configFile
 printf "COSMOSDB_ACCOUNT=$cosmosdbaccount \n">> $configFile
 printf "COSMOSDB_CONTAINER=$cosmosdbcontainer \n">> $configFile
 printf "COSMOSDB_ACCT_PRIMARY_KEY=$primaryMasterKey \n">> $configFile

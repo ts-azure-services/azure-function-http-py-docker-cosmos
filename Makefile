@@ -12,6 +12,5 @@ function_setup:
 	func new --name HttpCosmos --template "HTTP trigger" --authlevel anonymous
 
 copy_artifacts:
-	# Copy function app 1 artifacts
-	cp ./function_app_1_artifacts/fa1_init.py ./fa1/__init__.py
-	cp ./function_app_1_artifacts/fa1_function_json.sample ./fa1/function.json
+	cp ./HttpCosmosOriginal/__init__.py ./HttpCosmos/__init__.py
+	cp ./HttpCosmosOriginal/function.json ./HttpCosmos/function.json
