@@ -4,8 +4,6 @@ install:
 	pip install azure-functions
 	pip install wazoo
 
-hello:
-
 infra:
 	./setup/create-resources.sh
 
