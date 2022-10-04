@@ -19,7 +19,9 @@ copy_artifacts:
 	cp ./function_app_files/fa_init.py ./HttpCosmos/__init__.py
 	cp ./function_app_files/fa_function_json.sample ./HttpCosmos/function.json
 
-publish_app:
+publish:
 	. variables.env;\
 		func azure functionapp publish $${FUNCTIONAPPNAME}
 
+get_url:
+	./admin/get-url.sh
