@@ -3,11 +3,11 @@ install:
 	pip install azure-cosmos
 	pip install azure-functions
 
-infra:
-	./admin/create-resources.sh
-
 cleanup:
 	./admin/cleanup.sh
+
+infra:
+	./admin/create-resources.sh
 
 function_setup:
 	func init --worker-runtime python
