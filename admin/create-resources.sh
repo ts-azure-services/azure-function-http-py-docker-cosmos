@@ -150,6 +150,7 @@ printf "RESOURCE_GROUP=$resourcegroup \n"> $configFile
 printf "STORAGE_ACCT_NAME=$storagename \n" >> $configFile
 printf "STORAGE_CONN_STRING=$sakey \n" >> $configFile
 printf "FUNCTIONAPPNAME=$functionappname \n" >> $configFile
+printf "FUNCTIONAPP_SECRET=$functionapppw \n" >> $configFile
 printf "COSMOSDB_ACCOUNT=$cosmosdbaccount \n">> $configFile
 printf "COSMOSDB_CONTAINER=$cosmosdbcontainer \n">> $configFile
 printf "COSMOSDB_ACCT_PRIMARY_KEY=$primaryMasterKey \n">> $configFile
