@@ -13,5 +13,5 @@ rm -rf ./.python_package
 rm -rf ./HttpCosmos
 rm -f ./getting_started.md
 rm -f ./host.json
-rm -f ./requirements.txt
+#rm -f ./requirements.txt
 rm -f ./local.settings.json
