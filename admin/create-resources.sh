@@ -21,7 +21,7 @@ number=$[ ( $RANDOM % 10000 ) + 1 ]
 resourcegroup=$unique_name$number
 storagename=$unique_name$number'storageacct'
 cosmosdbaccount='sqlapi'$number'account'
-cosmosdbcontainer='sqlapi'$number'container'
+cosmosdbcontainer='volcano'
 cosmosdbdatabase='sqlapi'$number'database'
 appinsightsname=$unique_name$number'appinsights'
 functionappname=$unique_name$number'functionapp'
@@ -60,16 +60,17 @@ printf "${grn}Creating the CosmosDB account...${end}\n"
 cosmosDBAccount=$(az cosmosdb create --name $cosmosdbaccount \
 	-g $resourcegroup)
 printf "Result of CosmosDB Account create:\n $cosmosDBAccount \n"
+sleep 20
 
-### Create a CosmosDB container in the account
-#printf "${grn}Creating the CosmosDB container...${end}\n"
-#cosmosDBContainer=$(az cosmosdb sql container create \
-#	--account-name $cosmosdbaccount \
-#	--database-name $cosmosdbdatabase \
-#	--name $cosmosdbcontainer \
-#	--partition-key-path "/my/path" \
-#	-g $resourcegroup)
-#printf "Result of CosmosDB container create:\n $cosmosDBContainer \n"
+## Create a CosmosDB container in the account
+printf "${grn}Creating the CosmosDB container...${end}\n"
+cosmosDBContainer=$(az cosmosdb sql container create \
+	--account-name $cosmosdbaccount \
+	--database-name $cosmosdbdatabase \
+	--name $cosmosdbcontainer \
+	--partition-key-path "/Region" \
+	-g $resourcegroup)
+printf "Result of CosmosDB container create:\n $cosmosDBContainer \n"
 
 ## Get the cosmosdb account primary master key
 printf "${grn}Get Cosmosdb account primary master key...${end}\n"

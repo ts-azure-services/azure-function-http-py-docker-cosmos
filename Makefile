@@ -26,6 +26,8 @@ publish:
 get_url:
 	./admin/get-url.sh
 
+# Load the data (manually)
+
 # Testing the request
 create_payload:
 	python ./http-requests/postdata.py > ./http-requests/data/body1.json
