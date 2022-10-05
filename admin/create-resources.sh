@@ -114,6 +114,7 @@ sleep 5
 primaryMasterKey=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryMasterKey")
 primaryConnectionString=$(sed -e 's/^"//' -e 's/"$//' <<<"$primaryConnectionString")
 sakey=$(sed -e 's/^"//' -e 's/"$//' <<<"$sakey")
+cosmosdburi=$(echo $primaryConnectionString | cut -d ';' -f 1 | cut -d '=' -f 2)
 
 # Update function app settings
 printf "${grn}Updating AzureWebJobsStorage...${end}\n"
@@ -123,7 +124,7 @@ result=$(az functionapp config appsettings set -n $functionappname -g $resourceg
 
 printf "${grn}Updating CosmosDB URI...${end}\n"
 result=$(az functionapp config appsettings set -n $functionappname -g $resourcegroup \
-	--settings AZURE_COSMOSDB_SQLDB_URI=$primaryConnectionString)
+	--settings AZURE_COSMOSDB_SQLDB_URI=$cosmosdburi)
 #printf "Result of function app setting changes:\n $result \n"
 
 printf "${grn}Updating CosmosDB primary key...${end}\n"
@@ -156,4 +157,5 @@ printf "COSMOSDB_ACCOUNT=$cosmosdbaccount \n">> $configFile
 printf "COSMOSDB_CONTAINER=$cosmosdbcontainer \n">> $configFile
 printf "COSMOSDB_ACCT_PRIMARY_KEY=$primaryMasterKey \n">> $configFile
 printf "COSMOSDB_ACCT_PRIMARY_CONN_STRING=$primaryConnectionString \n">> $configFile
+printf "COSMOSDB_ACCT_URI=$cosmosdburi \n">> $configFile
 sleep 5 # just to give time for artifacts to settle in the system, and be accessible
