@@ -26,5 +26,9 @@ publish:
 get_url:
 	./admin/get-url.sh
 
+# Testing the request
 create_payload:
 	python ./http-requests/postdata.py > ./http-requests/data/body1.json
+
+test_payload:
+	python ./http-requests/http_client.py
