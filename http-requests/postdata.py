@@ -17,7 +17,7 @@ if __name__ == "__main__":
     q1 = dict()
     #q1['sql'] = "select * from c where c.pk = 'GUM:MAJ' offset 0 limit 3"
     q1['sql'] = "select * from c where c.Region = 'Kamchatka'"
-    q1['count'] = 6
+    q1['count'] = 100
     q1['verbose'] = 'true'
 
     #q2 = dict()

@@ -40,4 +40,3 @@ if __name__ == "__main__":
             print(json.dumps(resp_obj, sort_keys=False, indent=2))
     except Exception as e:
         print(e)
-
