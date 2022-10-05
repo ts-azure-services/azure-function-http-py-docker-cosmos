@@ -138,11 +138,11 @@ result=$(az functionapp config appsettings set -n $functionappname -g $resourceg
 	--settings AZURE_FUNCTION_SECRET=$functionapppw)
 #printf "Result of function app setting changes:\n $result \n"
 
-printf "${grn}Updating function max queries...${end}\n"
-result=$(az functionapp config appsettings set -n $functionappname -g $resourcegroup \
-	--settings AZURE_FUNCTION_MAX_QUERIES=100)
-# Show the last printf statement since it shows all settings
-printf "Result of function app setting changes:\n $result \n"
+#printf "${grn}Updating function max queries...${end}\n"
+#result=$(az functionapp config appsettings set -n $functionappname -g $resourcegroup \
+#	--settings AZURE_FUNCTION_MAX_QUERIES=100)
+## Show the last printf statement since it shows all settings
+#printf "Result of function app setting changes:\n $result \n"
 sleep 5
 
 

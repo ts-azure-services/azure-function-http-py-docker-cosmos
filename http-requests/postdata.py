@@ -1,13 +1,16 @@
-import json
-import os
-
 # Simple Python script to create the postdata JSON files.
 # Chris Joakim, Microsoft, September 2021
 #
-# Use:
-# $ python postdata.py > postdata/body1.json
+import json
+import os
+import argparse
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--count", type=int)
+    args = parser.parse_args()
+
     postdata = dict()
     queries = list()
     postdata['database']  = 'dev'
@@ -16,8 +19,8 @@ if __name__ == "__main__":
     
     q1 = dict()
     #q1['sql'] = "select * from c where c.pk = 'GUM:MAJ' offset 0 limit 3"
-    q1['sql'] = "select * from c where c.Region = 'Kamchatka'"
-    q1['count'] = 100
+    q1['sql'] = "select * from c where c.Region = 'Kamchatka' offset 0 limit 3"
+    q1['count'] = args.count
     q1['verbose'] = 'true'
 
     #q2 = dict()

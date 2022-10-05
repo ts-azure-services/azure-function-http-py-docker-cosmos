@@ -29,8 +29,10 @@ get_url:
 # Load the data (manually)
 
 # Testing the request
+#query_count=1000
+#make create_payload query_count=200
 create_payload:
-	python ./http-requests/postdata.py > ./http-requests/data/body1.json
+	python ./http-requests/postdata.py --count $(query_count) > ./http-requests/data/body1.json
 
 test_payload:
 	python ./http-requests/http_client.py

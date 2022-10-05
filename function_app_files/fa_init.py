@@ -23,7 +23,7 @@ REQUEST_CHARGE_HEADER = 'x-ms-request-charge'
 DURATION_MS_HEADER    = 'x-ms-request-duration-ms'
 ITEM_COUNT_HEADER     = 'x-ms-item-count'
 HEADERS_OF_INTEREST   = [REQUEST_CHARGE_HEADER, DURATION_MS_HEADER, ITEM_COUNT_HEADER]
-DEFAULT_MAX_QUERIES   = 50
+#DEFAULT_MAX_QUERIES   = 50
 CACHED_COSMOS_CLIENT  = None
 # See https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-python?tabs=azurecli-linux%2Capplication-level#global-variables
 # regarding global variables - "the Azure Functions runtime often reuses the same process for multiple executions of the same app."
@@ -57,20 +57,20 @@ def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
                 connect_finish_epoch = datetime.now().timestamp()
                 response_obj['cosmos_client_connect_seconds'] = connect_finish_epoch - connect_start_epoch
                 query_count = 0
-                max_query_count = get_max_query_count()
+                #max_query_count = get_max_query_count()
                 for query in queries:
                     sql = query['sql']
                     count = int(query['count'])
                     client_verbose = str(query['verbose']).lower() == 'true'
                     for idx in range(count):
                         query_count = query_count + 1
-                        if query_count <= max_query_count:
-                            result = dict()
-                            result['seq'] = query_count
-                            result['idx'] = idx
-                            result['sql'] = sql
-                            query_container(ctr_proxy, result, sql, client_verbose)
-                            response_obj['results'].append(result)             
+                        #if query_count <= max_query_count:
+                        result = dict()
+                        result['seq'] = query_count
+                        result['idx'] = idx
+                        result['sql'] = sql
+                        query_container(ctr_proxy, result, sql, client_verbose)
+                        response_obj['results'].append(result)             
                 jstr = json.dumps(response_obj, indent=2, sort_keys=True)
                 return func.HttpResponse(jstr)
             else:
@@ -94,14 +94,14 @@ def get_cosmos_client():
         logging.info('using cached CosmosClient')
         return CACHED_COSMOS_CLIENT
 
-def get_max_query_count():
-    try:
-        s = os.environ['AZURE_FUNCTION_MAX_QUERIES']
-        if s is None:
-            return DEFAULT_MAX_QUERIES
-        return int(s)
-    except:
-        return DEFAULT_MAX_QUERIES
+#def get_max_query_count():
+#    try:
+#        s = os.environ['AZURE_FUNCTION_MAX_QUERIES']
+#        if s is None:
+#            return DEFAULT_MAX_QUERIES
+#        return int(s)
+#    except:
+#        return DEFAULT_MAX_QUERIES
 
 def get_preferred_locations():
     try:
