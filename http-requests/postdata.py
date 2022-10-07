@@ -20,6 +20,7 @@ if __name__ == "__main__":
     q1 = dict()
     #q1['sql'] = "select * from c where c.pk = 'GUM:MAJ' offset 0 limit 3"
     q1['sql'] = "select * from c where c.Region = 'Kamchatka' offset 0 limit 3"
+    #q1['sql'] = "select * from c where c.Region = 'Kamchatka'"
     q1['count'] = args.count
     q1['verbose'] = 'true'
 

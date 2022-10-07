@@ -26,7 +26,7 @@ publish:
 get_url:
 	./admin/get-url.sh
 
-# Load the data (manually)
+# Load the data (manually); database=dev, container=volcano
 
 # Testing the request
 #query_count=1000
